@@ -1,0 +1,315 @@
+task.spawn(function()
+    local Players = game:GetService("Players")
+    local StarterGui = game:GetService("StarterGui")
+    local RunService = game:GetService("RunService")
+    local CoreGui = game:GetService("CoreGui")
+    local Workspace = game:GetService("Workspace")
+    local LocalPlayer = Players.LocalPlayer
+
+    local function SendNotify(title, text, duration)
+        StarterGui:SetCore("SendNotification", {
+            Title = title,
+            Text = text,
+            Duration = duration or 3
+        })
+    end
+
+    if CoreGui:FindFirstChild("[ใส่ชื่อตรงนี้]_Fly360Fix") then
+        SendNotify("[ใส่ชื่อตรงนี้]", "สคริปต์บินทำงานอยู่แล้วเพื่อน!", 3)
+        return
+    end
+
+    local ScreenGui = Instance.new("ScreenGui")
+    ScreenGui.Name = "[ใส่ชื่อตรงนี้]_Fly360Fix"
+    ScreenGui.Parent = CoreGui
+    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    ScreenGui.ResetOnSpawn = false
+
+    local Frame = Instance.new("Frame")
+    Frame.Name = "MainFrame"
+    Frame.Parent = ScreenGui
+    Frame.BackgroundColor3 = Color3.fromRGB(15, 18, 26)
+    Frame.Position = UDim2.new(0.1, 0, 0.35, 0)
+    Frame.Size = UDim2.new(0, 220, 0, 115)
+    Frame.Active = true
+    Frame.Draggable = true
+
+    local MainCorner = Instance.new("UICorner")
+    MainCorner.CornerRadius = UDim.new(0, 10)
+    MainCorner.Parent = Frame
+
+    local MainStroke = Instance.new("UIStroke")
+    MainStroke.Color = Color3.fromRGB(0, 140, 255)
+    MainStroke.Thickness = 1.8
+    MainStroke.Parent = Frame
+
+    local Title = Instance.new("TextLabel")
+    Title.Name = "Title"
+    Title.Parent = Frame
+    Title.BackgroundTransparency = 1
+    Title.Position = UDim2.new(0, 12, 0, 6)
+    Title.Size = UDim2.new(0, 130, 0, 24)
+    Title.Font = Enum.Font.GothamBold
+    Title.Text = "[ใส่ชื่อตรงนี้] <font color=\"rgb(0, 170, 255)\">360° FLY</font>"
+    Title.RichText = true
+    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Title.TextSize = 13
+    Title.TextXAlignment = Enum.TextXAlignment.Left
+
+    local TopButtonsHolder = Instance.new("Frame")
+    TopButtonsHolder.Parent = Frame
+    TopButtonsHolder.BackgroundTransparency = 1
+    TopButtonsHolder.Position = UDim2.new(1, -60, 0, 6)
+    TopButtonsHolder.Size = UDim2.new(0, 50, 0, 24)
+
+    local MiniBtn = Instance.new("TextButton")
+    MiniBtn.Name = "Minimize"
+    MiniBtn.Parent = TopButtonsHolder
+    MiniBtn.BackgroundTransparency = 1
+    MiniBtn.Font = Enum.Font.GothamBold
+    MiniBtn.Size = UDim2.new(0, 20, 0, 20)
+    MiniBtn.Position = UDim2.new(0, 0, 0, 0)
+    MiniBtn.Text = "-"
+    MiniBtn.TextColor3 = Color3.fromRGB(0, 170, 255)
+    MiniBtn.TextSize = 18
+
+    local CloseBtn = Instance.new("TextButton")
+    CloseBtn.Name = "Close"
+    CloseBtn.Parent = TopButtonsHolder
+    CloseBtn.BackgroundTransparency = 1
+    CloseBtn.Font = Enum.Font.GothamBold
+    CloseBtn.Size = UDim2.new(0, 20, 0, 20)
+    CloseBtn.Position = UDim2.new(0, 25, 0, 0)
+    CloseBtn.Text = "X"
+    CloseBtn.TextColor3 = Color3.fromRGB(255, 80, 80)
+    CloseBtn.TextSize = 13
+
+    local ContentContainer = Instance.new("Frame")
+    ContentContainer.Name = "ContentContainer"
+    ContentContainer.Parent = Frame
+    ContentContainer.BackgroundTransparency = 1
+    ContentContainer.Position = UDim2.new(0, 0, 0, 35)
+    ContentContainer.Size = UDim2.new(1, 0, 1, -35)
+
+    local function CreateStyledButton(name, text, pos, size, bgColor, textColor)
+        local btn = Instance.new("TextButton")
+        btn.Name = name
+        btn.Parent = ContentContainer
+        btn.BackgroundColor3 = bgColor or Color3.fromRGB(25, 32, 45)
+        btn.Position = pos
+        btn.Size = size
+        btn.Font = Enum.Font.GothamBold
+        btn.Text = text
+        btn.TextColor3 = textColor or Color3.fromRGB(255, 255, 255)
+        btn.TextSize = 12
+
+        local corner = Instance.new("UICorner")
+        corner.CornerRadius = UDim.new(0, 6)
+        corner.Parent = btn
+
+        local stroke = Instance.new("UIStroke")
+        stroke.Color = Color3.fromRGB(40, 55, 75)
+        stroke.Thickness = 1
+        stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        stroke.Parent = btn
+
+        return btn
+    end
+
+    local UpBtn = CreateStyledButton("UpBtn", "UP", UDim2.new(0, 10, 0, 5), UDim2.new(0, 44, 0, 30))
+    local DownBtn = CreateStyledButton("DownBtn", "DOWN", UDim2.new(0, 10, 0, 40), UDim2.new(0, 44, 0, 30))
+    
+    local PlusBtn = CreateStyledButton("PlusBtn", "+", UDim2.new(0, 60, 0, 5), UDim2.new(0, 44, 0, 30), Color3.fromRGB(0, 100, 200))
+    local MineBtn = CreateStyledButton("MineBtn", "-", UDim2.new(0, 60, 0, 40), UDim2.new(0, 44, 0, 30), Color3.fromRGB(0, 100, 200))
+
+    local OnOffBtn = CreateStyledButton("OnOffBtn", "FLY : OFF", UDim2.new(0, 110, 0, 5), UDim2.new(0, 100, 0, 30), Color3.fromRGB(240, 240, 240), Color3.fromRGB(20, 20, 20))
+
+    local SpeedBox = Instance.new("TextBox")
+    SpeedBox.Name = "SpeedBox"
+    SpeedBox.Parent = ContentContainer
+    SpeedBox.BackgroundColor3 = Color3.fromRGB(20, 26, 38)
+    SpeedBox.Position = UDim2.new(0, 110, 0, 40)
+    SpeedBox.Size = UDim2.new(0, 100, 0, 30)
+    SpeedBox.Font = Enum.Font.GothamBold
+    SpeedBox.Text = "1"
+    SpeedBox.TextColor3 = Color3.fromRGB(0, 200, 255)
+    SpeedBox.TextSize = 13
+    SpeedBox.ClearTextOnFocus = false
+
+    local SpeedCorner = Instance.new("UICorner")
+    SpeedCorner.CornerRadius = UDim.new(0, 6)
+    SpeedCorner.Parent = SpeedBox
+
+    local SpeedStroke = Instance.new("UIStroke")
+    SpeedStroke.Color = Color3.fromRGB(0, 140, 255)
+    SpeedStroke.Thickness = 1
+    SpeedStroke.Parent = SpeedBox
+
+
+    local flySpeed = 50
+    local speedMultiplier = 1
+    local isFlying = false
+    local isMinimized = false
+    local upHolding = false
+    local downHolding = false
+
+    local flyConnection = nil
+    local bg, bv = nil, nil
+
+    SendNotify("[ใส่ชื่อตรงนี้]", "แก้ระบบควบคุม 360° เรียบร้อย!", 3)
+
+    local function ToggleMinimize()
+        isMinimized = not isMinimized
+        if isMinimized then
+            Frame.Size = UDim2.new(0, 220, 0, 35)
+            ContentContainer.Visible = false
+            MiniBtn.Text = "+"
+        else
+            Frame.Size = UDim2.new(0, 220, 0, 115)
+            ContentContainer.Visible = true
+            MiniBtn.Text = "-"
+        end
+    end
+
+    MiniBtn.MouseButton1Click:Connect(ToggleMinimize)
+
+    local function StopFly()
+        isFlying = false
+        OnOffBtn.Text = "FLY : OFF"
+        OnOffBtn.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+        OnOffBtn.TextColor3 = Color3.fromRGB(20, 20, 20)
+
+        if flyConnection then
+            flyConnection:Disconnect()
+            flyConnection = nil
+        end
+
+        if bg then bg:Destroy() bg = nil end
+        if bv then bv:Destroy() bv = nil end
+
+        local char = LocalPlayer.Character
+        if char then
+            local hum = char:FindFirstChildWhichIsA("Humanoid")
+            if hum then
+                hum.PlatformStand = false
+                hum:ChangeState(Enum.HumanoidStateType.Running)
+            end
+            if char:FindFirstChild("Animate") then
+                char.Animate.Disabled = false
+            end
+        end
+    end
+
+    CloseBtn.MouseButton1Click:Connect(function()
+        StopFly()
+        ScreenGui:Destroy()
+    end)
+
+    local function StartFly()
+        local char = LocalPlayer.Character
+        if not char then return end
+        local hum = char:FindFirstChildWhichIsA("Humanoid")
+        local root = char:FindFirstChild("HumanoidRootPart") or char:FindFirstChild("Torso") or char:FindFirstChild("UpperTorso")
+        if not hum or not root then return end
+
+        isFlying = true
+        OnOffBtn.Text = "FLY : ON"
+        OnOffBtn.BackgroundColor3 = Color3.fromRGB(0, 140, 255)
+        OnOffBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+        if char:FindFirstChild("Animate") then
+            char.Animate.Disabled = true
+        end
+
+        for _, track in ipairs(hum:GetPlayingAnimationTracks()) do
+            track:AdjustSpeed(0)
+        end
+
+        hum.PlatformStand = true
+
+        bg = Instance.new("BodyGyro")
+        bg.P = 9e4
+        bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+        bg.cframe = root.CFrame
+        bg.Parent = root
+
+        bv = Instance.new("BodyVelocity")
+        bv.velocity = Vector3.new(0, 0, 0)
+        bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+        bv.Parent = root
+
+        flyConnection = RunService.RenderStepped:Connect(function()
+            if not isFlying or not char or not hum or hum.Health <= 0 then
+                StopFly()
+                return
+            end
+
+            local cam = Workspace.CurrentCamera
+            bg.cframe = cam.CFrame
+
+            local moveDir = hum.MoveDirection
+            local finalVelocity = Vector3.new(0, 0, 0)
+
+            if moveDir.Magnitude > 0 then
+                local camCFrame = cam.CFrame
+                local forwardAmount = moveDir:Dot(camCFrame.LookVector)
+                local rightAmount = moveDir:Dot(camCFrame.RightVector)
+
+                local flyVector = (camCFrame.LookVector * forwardAmount) + (camCFrame.RightVector * rightAmount)
+                
+                if flyVector.Magnitude > 0 then
+                    finalVelocity = flyVector.Unit * (flySpeed * speedMultiplier)
+                end
+            end
+
+            if upHolding then
+                finalVelocity = finalVelocity + Vector3.new(0, flySpeed * speedMultiplier, 0)
+            elseif downHolding then
+                finalVelocity = finalVelocity - Vector3.new(0, flySpeed * speedMultiplier, 0)
+            end
+
+            bv.velocity = finalVelocity
+        end)
+    end
+
+    OnOffBtn.MouseButton1Click:Connect(function()
+        if isFlying then
+            StopFly()
+        else
+            StartFly()
+        end
+    end)
+
+    UpBtn.MouseButton1Down:Connect(function() upHolding = true end)
+    UpBtn.MouseButton1Up:Connect(function() upHolding = false end)
+    UpBtn.MouseLeave:Connect(function() upHolding = false end)
+
+    DownBtn.MouseButton1Down:Connect(function() downHolding = true end)
+    DownBtn.MouseButton1Up:Connect(function() downHolding = false end)
+    DownBtn.MouseLeave:Connect(function() downHolding = false end)
+
+    PlusBtn.MouseButton1Click:Connect(function()
+        speedMultiplier = speedMultiplier + 0.5
+        SpeedBox.Text = tostring(speedMultiplier)
+    end)
+
+    MineBtn.MouseButton1Click:Connect(function()
+        if speedMultiplier > 0.5 then
+            speedMultiplier = speedMultiplier - 0.5
+            SpeedBox.Text = tostring(speedMultiplier)
+        else
+            speedMultiplier = 0.5
+            SpeedBox.Text = "0.5"
+        end
+    end)
+
+    SpeedBox.FocusLost:Connect(function()
+        local num = tonumber(SpeedBox.Text)
+        if num and num > 0 then
+            speedMultiplier = num
+            SpeedBox.Text = tostring(speedMultiplier)
+        else
+            SpeedBox.Text = tostring(speedMultiplier)
+        end
+    end)
+end)
