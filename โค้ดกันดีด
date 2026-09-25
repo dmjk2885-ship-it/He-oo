@@ -1,0 +1,91 @@
+--เอาไปโค้ดกันดีดเเถมปุ่มเปิดปิดให้ด้วย67--
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local CoreGui = game:GetService("CoreGui")
+
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+
+local isNoclipEnabled = false
+local noclipConnection = nil
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "GKHub_NoclipUI"
+if syn and syn.protect_gui then
+    syn.protect_gui(ScreenGui)
+    ScreenGui.Parent = CoreGui
+else
+    ScreenGui.Parent = CoreGui
+end
+
+local ToggleButton = Instance.new("TextButton")
+ToggleButton.Name = "ToggleNoclip"
+ToggleButton.Parent = ScreenGui
+ToggleButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+ToggleButton.BorderColor3 = Color3.fromRGB(0, 170, 255)
+ToggleButton.BorderSizePixel = 2
+ToggleButton.Position = UDim2.new(0.1, 0, 0.1, 0)
+ToggleButton.Size = UDim2.new(0, 120, 0, 45)
+ToggleButton.Font = Enum.Font.GothamBold
+ToggleButton.Text = "Noclip: OFF"
+ToggleButton.TextColor3 = Color3.fromRGB(255, 75, 75)
+ToggleButton.TextSize = 14
+ToggleButton.Active = true
+ToggleButton.Draggable = true
+
+local function startNoclip()
+    if noclipConnection then noclipConnection:Disconnect() end
+    
+    noclipConnection = RunService.Stepped:Connect(function()
+        if not isNoclipEnabled then return end
+        
+        local currentCharacter = LocalPlayer.Character
+        if currentCharacter and currentCharacter:FindFirstChild("HumanoidRootPart") then
+            for _, part in pairs(currentCharacter:GetDescendants()) do
+                if part:IsA("BasePart") and part.CanCollide then
+                    part.CanCollide = false
+                end
+            end
+        end
+    end)
+end
+
+local function stopNoclip()
+    if noclipConnection then
+        noclipConnection:Disconnect()
+        noclipConnection = nil
+    end
+    
+    local currentCharacter = LocalPlayer.Character
+    if currentCharacter then
+        for _, part in pairs(currentCharacter:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = true
+            end
+        end
+    end
+end
+
+ToggleButton.MouseButton1Click:Connect(function()
+    isNoclipEnabled = not isNoclipEnabled
+    
+    if isNoclipEnabled then
+        ToggleButton.Text = "Noclip: ON"
+        ToggleButton.TextColor3 = Color3.fromRGB(75, 255, 75)
+        ToggleButton.BorderColor3 = Color3.fromRGB(0, 255, 100)
+        startNoclip()
+    else
+        ToggleButton.Text = "Noclip: OFF"
+        ToggleButton.TextColor3 = Color3.fromRGB(255, 75, 75)
+        ToggleButton.BorderColor3 = Color3.fromRGB(0, 170, 255)
+        stopNoclip()
+    end
+end)
+
+LocalPlayer.CharacterAdded:Connect(function(newChar)
+    Character = newChar
+    if isNoclipEnabled then
+        task.wait(0.5)
+        startNoclip()
+    end
+end)localocal
