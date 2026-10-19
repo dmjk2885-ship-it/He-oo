@@ -7,7 +7,7 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -16,6 +16,7 @@
             --primary-blue: #0072ff;
             --cyan-accent: #00d2ff;
             --discord-color: #5865F2;
+            --danger-color: #ff4757;
             --text-main: #ffffff;
             --text-sub: #94a3b8;
         }
@@ -80,16 +81,57 @@
         .subtitle {
             color: var(--text-sub);
             font-size: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-weight: 300;
         }
 
+        /* Features Section */
+        .features-card {
+            background: rgba(13, 22, 38, 0.6);
+            border: 1px solid rgba(0, 210, 255, 0.15);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .features-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--cyan-accent);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .features-list li {
+            font-size: 14px;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .features-list li i {
+            color: var(--cyan-accent);
+            font-size: 12px;
+        }
+
+        /* Script Box Section */
         .script-section {
             background: rgba(8, 12, 22, 0.8);
             border: 1px solid rgba(0, 210, 255, 0.15);
             border-radius: 16px;
             padding: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: left;
         }
 
@@ -147,12 +189,84 @@
             background: var(--discord-color);
             color: #ffffff;
             box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+            margin-bottom: 20px;
         }
 
         .btn-discord:hover {
             transform: translateY(-2px);
             background: #4752c4;
             box-shadow: 0 6px 20px rgba(88, 101, 242, 0.5);
+        }
+
+        .btn-report {
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+            border: 1px solid rgba(255, 71, 87, 0.3);
+        }
+
+        .btn-report:hover {
+            background: rgba(255, 71, 87, 0.25);
+        }
+
+        /* Report Modal Section */
+        .report-box {
+            display: none;
+            background: rgba(8, 12, 22, 0.95);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 15px;
+            text-align: left;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .report-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ff4757;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            background: #050811;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 12px;
+            color: #ffffff;
+            font-size: 14px;
+            resize: none;
+            outline: none;
+            margin-bottom: 8px;
+        }
+
+        textarea:focus {
+            border-color: var(--cyan-accent);
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-bottom: 12px;
+        }
+
+        .btn-send {
+            background: var(--danger-color);
+            color: #fff;
+        }
+
+        .btn-send:hover {
+            background: #ff2e44;
         }
 
         .footer {
@@ -176,6 +290,7 @@
             transition: all 0.4s ease;
             opacity: 0;
             pointer-events: none;
+            z-index: 1000;
         }
 
         .toast.show {
@@ -193,6 +308,22 @@
         </div>
         <h1>GK HUB</h1>
         <p class="subtitle">สคริปต์ Roblox คุณภาพสูง รวมการใช้งานง่ายไว้ในที่เดียว</p>
+
+        <!-- Features Supported Card -->
+        <div class="features-card">
+            <div class="features-title">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>รับรองสคริปต์อะไรบ้าง?</span>
+            </div>
+            <ul class="features-list">
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์ใช้ได้ทุกแมพ</li>
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์ดีดคนออกแมพ</li>
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์หาเซิร์ฟคนน้อย</li>
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์ แมพ MM2</li>
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์ แมพสร้างเรือ</li>
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์ แมพ TSP</li>
+            </ul>
+        </div>
 
         <!-- Script Box Section -->
         <div class="script-section">
@@ -217,37 +348,123 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/dmjk2885-ship-it/Lll/
             <span>เข้าร่วม Discord GK HUB</span>
         </a>
 
+        <!-- Report Issue Button -->
+        <button class="btn btn-report" onclick="toggleReportBox()">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>รายงานปัญหาสคริปต์</span>
+        </button>
+
+        <!-- Report Form Box -->
+        <div class="report-box" id="reportBox">
+            <div class="report-header">
+                <i class="fa-solid fa-bug"></i>
+                <span>แจ้งปัญหาสคริปต์ถึงทีมงาน</span>
+            </div>
+            <textarea id="reportMessage" maxlength="250" placeholder="พิมพ์รายละเอียดปัญหาที่คุณพบ (สูงสุด 250 ตัวอักษร)..." oninput="updateCharCount()"></textarea>
+            <div class="char-count"><span id="charCount">0</span>/250</div>
+            <button class="btn btn-send" onclick="sendReport()">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>ส่งรายงาน</span>
+            </button>
+        </div>
+
         <!-- Footer -->
         <div class="footer">
             <p>© 2026 GK HUB. All rights reserved.</p>
         </div>
     </div>
 
-    <!-- Notification -->
+    <!-- Notification Toast -->
     <div class="toast" id="toast">
-        <i class="fa-solid fa-check-circle"></i> คัดลอกสคริปต์เรียบร้อยแล้ว!
+        <i class="fa-solid fa-check-circle"></i> <span id="toastMsg">คัดลอกสคริปต์เรียบร้อยแล้ว!</span>
     </div>
 
     <script>
+        // Webhook URL
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1561656790196817973/IcPgxz_R2DBX2Po10_7cDUCYyOG3E6yQ_rWpwarF8K-5mMxscP9e2d2iMp0JTVI5XpM9";
+
+        // Copy Script Function
         function copyScript() {
             const scriptText = document.getElementById('scriptCode').innerText.trim();
-            
             navigator.clipboard.writeText(scriptText).then(() => {
-                showToast();
+                showToast("คัดลอกสคริปต์เรียบร้อยแล้ว!");
             }).catch(err => {
-                // Fallback for older browsers
                 const tempInput = document.createElement('textarea');
                 tempInput.value = scriptText;
                 document.body.appendChild(tempInput);
                 tempInput.select();
                 document.execCommand('copy');
                 document.body.removeChild(tempInput);
-                showToast();
+                showToast("คัดลอกสคริปต์เรียบร้อยแล้ว!");
             });
         }
 
-        function showToast() {
+        // Toggle Report Box
+        function toggleReportBox() {
+            const reportBox = document.getElementById('reportBox');
+            if (reportBox.style.display === "block") {
+                reportBox.style.display = "none";
+            } else {
+                reportBox.style.display = "block";
+            }
+        }
+
+        // Character Count Update
+        function updateCharCount() {
+            const text = document.getElementById('reportMessage').value;
+            document.getElementById('charCount').innerText = text.length;
+        }
+
+        // Send Report to Discord Webhook
+        function sendReport() {
+            const message = document.getElementById('reportMessage').value.trim();
+
+            if (message === "") {
+                showToast("กรุณากรอกข้อความก่อนส่ง!");
+                return;
+            }
+
+            const payload = {
+                embeds: [{
+                    title: "🚨 มีการรายงานปัญหาสคริปต์ใหม่ (GK HUB)",
+                    color: 16730200, // สีแดง
+                    fields: [
+                        {
+                            name: "📝 รายละเอียดปัญหา",
+                            value: message
+                        }
+                    ],
+                    footer: {
+                        text: "ส่งจากเว็บไซต์ GK HUB Official"
+                    },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            }).then(response => {
+                if (response.ok) {
+                    showToast("ส่งรายงานปัญหาเรียบร้อยแล้ว!");
+                    document.getElementById('reportMessage').value = "";
+                    updateCharCount();
+                    toggleReportBox();
+                } else {
+                    showToast("เกิดข้อผิดพลาดในการส่ง กรุณาลองใหม่");
+                }
+            }).catch(error => {
+                showToast("เกิดข้อผิดพลาดในการเชื่อมต่อ!");
+            });
+        }
+
+        // Show Toast Notification
+        function showToast(msg) {
             const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
             toast.classList.add('show');
             setTimeout(() => {
                 toast.classList.remove('show');
