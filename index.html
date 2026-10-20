@@ -1,570 +1,486 @@
 <!DOCTYPE html>
-<html lang="th" class="dark">
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GK HUB - ค่ายสคริปต์ Roblox โดยคนไทย</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            dark: '#070A13',
-                            card: '#0F172A',
-                            border: '#1E293B',
-                            accent: '#0066FF',
-                            cyan: '#00F0FF',
-                            blueGlow: '#0044FF'
-                        }
-                    },
-                    fontFamily: {
-                        prompt: ['Prompt', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Google Fonts: Prompt -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>GK HUB - Roblox Script Official</title>
+    
+    <!-- Favicon & Open Graph (Discord / Social Preview) -->
+    <link rel="icon" type="image/png" href="https://i.imgur.com/YOUR_LOGO_HERE.png">
+    <meta property="og:title" content="GK HUB - Roblox Script Official">
+    <meta property="og:description" content="ศูนย์รวมสคริปต์ Roblox คุณภาพสูง รวมการใช้งานง่ายไว้ในที่เดียว">
+    <meta property="og:image" content="https://i.imgur.com/YOUR_LOGO_HERE.png">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#00d2ff">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(18, 26, 43, 0.75);
+            --border-color: rgba(0, 210, 255, 0.2);
+            --primary-blue: #0072ff;
+            --cyan-accent: #00d2ff;
+            --discord-color: #5865F2;
+            --danger-color: #ff4757;
+            --text-main: #ffffff;
+            --text-sub: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+
         body {
-            font-family: 'Prompt', sans-serif;
-            background-color: #070A13;
-            color: #FFFFFF;
-            overflow-x: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 114, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 210, 255, 0.15) 0%, transparent 40%);
+            background-attachment: fixed;
         }
 
-        /* Glassmorphism Effect */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.75);
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 240, 255, 0.15);
+            border-radius: 24px;
+            padding: 35px 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
+                        0 0 20px rgba(0, 210, 255, 0.1);
+            text-align: center;
         }
 
-        .glass-card {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(30, 41, 59, 0.8);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .logo-box {
+            margin-bottom: 15px;
+            display: inline-block;
         }
 
-        .glass-card:hover {
-            border-color: rgba(0, 240, 255, 0.5);
-            box-shadow: 0 0 25px rgba(0, 102, 255, 0.25);
-            transform: translateY(-4px);
+        .logo-box i {
+            font-size: 55px;
+            background: linear-gradient(135deg, var(--cyan-accent), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.4));
         }
 
-        /* Custom Glow Utility */
-        .text-glow {
-            text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ffffff, var(--cyan-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
         }
 
-        .text-glow-blue {
-            text-shadow: 0 0 15px rgba(0, 102, 255, 0.8);
+        .subtitle {
+            color: var(--text-sub);
+            font-size: 15px;
+            margin-bottom: 25px;
+            font-weight: 300;
         }
 
-        .glow-button {
-            box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
+        /* Features Section */
+        .features-card {
+            background: rgba(13, 22, 38, 0.6);
+            border: 1px solid rgba(0, 210, 255, 0.15);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .features-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--cyan-accent);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .features-list li {
+            font-size: 14px;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .features-list li i {
+            color: var(--cyan-accent);
+            font-size: 12px;
+        }
+
+        /* Script Box Section */
+        .script-section {
+            background: rgba(8, 12, 22, 0.8);
+            border: 1px solid rgba(0, 210, 255, 0.15);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .script-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--cyan-accent);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .code-box {
+            background: #050811;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            color: #38bdf8;
+            overflow-x: auto;
+            white-space: nowrap;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
-        .glow-button:hover {
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.7);
+        .btn-copy {
+            background: linear-gradient(135deg, var(--primary-blue), var(--cyan-accent));
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
         }
 
-        /* Ambient Glow Background Spheres */
-        .glow-bg-1 {
-            position: absolute;
-            top: -10%;
-            left: 20%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(0, 102, 255, 0.2) 0%, rgba(0,0,0,0) 70%);
-            z-index: 0;
+        .btn-copy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 210, 255, 0.5);
+        }
+
+        .btn-discord {
+            background: var(--discord-color);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .btn-discord:hover {
+            transform: translateY(-2px);
+            background: #4752c4;
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.5);
+        }
+
+        .btn-report {
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+            border: 1px solid rgba(255, 71, 87, 0.3);
+        }
+
+        .btn-report:hover {
+            background: rgba(255, 71, 87, 0.25);
+        }
+
+        /* Report Modal Section */
+        .report-box {
+            display: none;
+            background: rgba(8, 12, 22, 0.95);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 15px;
+            text-align: left;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .report-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ff4757;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            background: #050811;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 12px;
+            color: #ffffff;
+            font-size: 14px;
+            resize: none;
+            outline: none;
+            margin-bottom: 8px;
+        }
+
+        textarea:focus {
+            border-color: var(--cyan-accent);
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-bottom: 12px;
+        }
+
+        .btn-send {
+            background: var(--danger-color);
+            color: #fff;
+        }
+
+        .btn-send:hover {
+            background: #ff2e44;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 210, 255, 0.9);
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4);
+            transition: all 0.4s ease;
+            opacity: 0;
             pointer-events: none;
+            z-index: 1000;
         }
 
-        .glow-bg-2 {
-            position: absolute;
-            top: 40%;
-            right: 10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, rgba(0,0,0,0) 70%);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #070A13;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1E293B;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #0066FF;
+        .toast.show {
+            bottom: 30px;
+            opacity: 1;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between relative selection:bg-cyan-500 selection:text-black">
+<body>
 
-    <!-- Ambient Glow Effects -->
-    <div class="glow-bg-1"></div>
-    <div class="glow-bg-2"></div>
-
-    <!-- Navigation Header -->
-    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 px-4 lg:px-8 py-3 transition-all">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            
-            <!-- Logo & Brand Info -->
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 p-[2px] shadow-lg shadow-blue-500/30">
-                    <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                        <i class="fa-solid fa-terminal text-cyan-400 text-lg"></i>
-                    </div>
-                </div>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <span class="font-extrabold text-xl tracking-wider text-white">GK <span class="text-cyan-400 text-glow">HUB</span></span>
-                        <span class="text-[10px] bg-blue-950/80 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded-full font-mono">OFFICIAL</span>
-                    </div>
-                    <p class="text-[11px] text-slate-400 font-light flex items-center gap-1">
-                        <i class="fa-solid fa-code-branch text-[9px] text-blue-400"></i>
-                        สร้างโดย: <span class="text-white font-medium">เบส (Best)</span> <span class="text-slate-500">|</span> <span class="text-cyan-400">@cchirphanth0580</span> (gooร้อน)
-                    </p>
-                </div>
-            </div>
-
-            <!-- Quick Action Links & Audio Toggle -->
-            <div class="flex items-center gap-2 sm:gap-3">
-                <!-- Sound Toggle -->
-                <button id="soundToggleBtn" onclick="toggleAudio()" class="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 transition-all" title="เปิด/ปิด เสียงเอฟเฟกต์">
-                    <i id="soundIcon" class="fa-solid fa-volume-high text-sm"></i>
-                </button>
-
-                <!-- TikTok Button -->
-                <a href="https://www.tiktok.com/@data_v2.0?_r=1&_t=ZS-99l0E6EcnBf" target="_blank" onclick="playClickSound()" class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-pink-500/60 text-white text-xs font-medium hover:text-pink-400 transition-all hover:shadow-lg hover:shadow-pink-500/10">
-                    <i class="fa-brands fa-tiktok text-sm"></i>
-                    <span>TikTok</span>
-                </a>
-
-                <!-- External Hub Link -->
-                <a href="https://gkhub-script-roblox.dmjk2885.workers.dev/" target="_blank" onclick="playClickSound()" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500 text-white text-xs sm:text-sm font-semibold glow-button transition-all">
-                    <i class="fa-solid fa-code"></i>
-                    <span class="hidden sm:inline">คลังสคริปต์</span>
-                    <span class="sm:hidden">สคริปต์</span>
-                </a>
-            </div>
+    <div class="container">
+        <!-- Logo Header -->
+        <div class="logo-box">
+            <i class="fa-solid fa-gamepad"></i>
         </div>
-    </header>
+        <h1>GK HUB</h1>
+        <p class="subtitle">สคริปต์ Roblox คุณภาพสูง รวมการใช้งานง่ายไว้ในที่เดียว</p>
 
-    <!-- Main Content Container -->
-    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-8 sm:py-12 relative z-10 flex-grow space-y-16">
-
-        <!-- Hero Section -->
-        <section class="text-center space-y-6 pt-4">
-            
-            <!-- Metadata Chips -->
-            <div class="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-4 py-2 rounded-full glass-card border border-blue-500/30 text-xs sm:text-sm">
-                <div class="flex items-center gap-1.5 text-cyan-400 font-medium">
-                    <i class="fa-regular fa-calendar-check"></i>
-                    <span>ก่อตั้งเมื่อ: <strong class="text-white font-mono">31/07/2569</strong></span>
-                </div>
-                <span class="text-slate-600">|</span>
-                <div class="flex items-center gap-1.5 text-blue-400 font-medium">
-                    <i class="fa-solid fa-flag"></i>
-                    <span>พัฒนาโดยคนไทย 100%</span>
-                </div>
+        <!-- Features Supported Card -->
+        <div class="features-card">
+            <div class="features-title">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>รับรองสคริปต์อะไรบ้าง?</span>
             </div>
-
-            <!-- Title Header -->
-            <div class="space-y-3">
-                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white">
-                    ศูนย์รวมสคริปต์คุณภาพ <br class="hidden sm:inline"/>
-                    <span class="bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-400 bg-clip-text text-transparent text-glow-blue">
-                        ค่าย GK HUB
-                    </span>
-                </h1>
-                <p class="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base font-light leading-relaxed">
-                    อยากให้ทุกคนได้ใช้งานสคริปต์ Roblox ดีๆ ที่พัฒนาโดยคนไทย เพื่อคนไทย <br class="hidden sm:inline"/>
-                    ออกแบบเน้นความเรียบหรู ใช้งานง่าย ปลอดภัย ไม่ซับซ้อน และไม่ยุ่งยาก
-                </p>
-            </div>
-
-            <!-- Creator & Action Bar -->
-            <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-                
-                <!-- Join Discord Button -->
-                <a href="https://discord.gg/Ugssja4wqQ" target="_blank" onclick="playClickSound()" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-3 shadow-lg shadow-indigo-600/30 hover:shadow-indigo-500/50 transition-all transform hover:-translate-y-0.5">
-                    <i class="fa-brands fa-discord text-xl"></i>
-                    <span>เข้าร่วมเซิร์ฟเวอร์ Discord</span>
-                </a>
-
-                <!-- Script Library Button -->
-                <a href="https://gkhub-script-roblox.dmjk2885.workers.dev/" target="_blank" onclick="playClickSound()" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-cyan-400 border border-cyan-500/40 font-bold text-sm sm:text-base flex items-center justify-center gap-3 hover:border-cyan-400 transition-all transform hover:-translate-y-0.5">
-                    <i class="fa-solid fa-external-link-alt"></i>
-                    <span>ไปหน้าเลือกรับสคริปต์</span>
-                </a>
-            </div>
-
-            <!-- Creator Credit Card Mini -->
-            <div class="pt-4 flex items-center justify-center">
-                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300">
-                    <i class="fa-solid fa-user-gear text-cyan-400"></i>
-                    <span>ผู้พัฒนาหลัก/เจ้าของค่าย: <strong class="text-white">เบส (Best)</strong></span>
-                    <span class="text-slate-600">•</span>
-                    <span class="font-mono text-cyan-300">@cchirphanth0580 (gooร้อน)</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Highlights / Features Section -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            <div class="glass-card p-6 rounded-2xl space-y-3 relative overflow-hidden group">
-                <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center text-xl group-hover:bg-blue-600 group-hover:text-white transition-all">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                </div>
-                <h3 class="text-lg font-bold text-white">เข้าใจง่าย ไม่ซับซ้อน</h3>
-                <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                    เมนูการใช้งาน UI ภาษาไทยและอังกฤษ สบายตา ปุ่มกดชัดเจน ปรับแต่งให้รองรับทั้งมือถือและ PC
-                </p>
-            </div>
-
-            <div class="glass-card p-6 rounded-2xl space-y-3 relative overflow-hidden group">
-                <div class="w-12 h-12 rounded-xl bg-cyan-600/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center text-xl group-hover:bg-cyan-500 group-hover:text-black transition-all">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </div>
-                <h3 class="text-lg font-bold text-white">เน้นคุณภาพ & สเปกต่ำ</h3>
-                <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                    สคริปต์ลื่นไหล เขียนโค้ดกระชับ ไม่ดึงเครื่อง ช่วยเพิ่มประสิทธิภาพ FPS ในทุกการเล่น
-                </p>
-            </div>
-
-            <div class="glass-card p-6 rounded-2xl space-y-3 relative overflow-hidden group">
-                <div class="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center text-xl group-hover:bg-indigo-600 group-hover:text-white transition-all">
-                    <i class="fa-solid fa-users text-lg"></i>
-                </div>
-                <h3 class="text-lg font-bold text-white">ชุมชนสนับสนุน 24/7</h3>
-                <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                    มีดิสคอร์ดชุมชน พร้อมทีมงานแอดมินและผู้สร้างคอยอัปเดตสคริปต์และให้คำแนะนำตลอดเวลา
-                </p>
-            </div>
-
-        </section>
-
-        <!-- Script Support / Capabilities Section -->
-        <section class="space-y-6">
-            
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-slate-800 pb-4 gap-2">
-                <div>
-                    <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase">GKHUB SCRIPT SUPPORT</span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-list-check text-blue-500"></i>
-                        <span>รับรองสคริปต์ที่มีในค่าย</span>
-                    </h2>
-                </div>
-                <p class="text-xs text-slate-400">
-                    เลือกรับสคริปต์ทั้งหมดได้ทางเว็บไซต์คลังสคริปต์หลัก
-                </p>
-            </div>
-
-            <!-- List Grid of Supported Scripts -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
-                <!-- 1. ทุกแมพ -->
-                <div class="glass-card p-5 rounded-2xl flex items-center justify-between border-l-4 border-l-cyan-400">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-cyan-400 text-xl">
-                            <i class="fa-solid fa-earth-americas"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-white text-base">สคริปต์ ใช้ได้ทุกแมพ</h4>
-                            <p class="text-xs text-slate-400">Universal Main Script</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 rounded-full bg-cyan-950/80 text-cyan-300 border border-cyan-500/40 text-xs font-mono font-bold">
-                        40+ ฟังก์ชัน
-                    </span>
-                </div>
-
-                <!-- 2. FPS -->
-                <div class="glass-card p-5 rounded-2xl flex items-center justify-between border-l-4 border-l-blue-500">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-blue-400 text-xl">
-                            <i class="fa-solid fa-gauge-high"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-white text-base">FPS Boost / ลื่นขึ้น</h4>
-                            <p class="text-xs text-slate-400">เพิ่มประสิทธิภาพเครื่อง</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 rounded-full bg-blue-950/80 text-blue-300 border border-blue-500/40 text-xs font-mono font-bold">
-                        8+ ฟังก์ชัน
-                    </span>
-                </div>
-
-                <!-- 3. TSB -->
-                <div class="glass-card p-5 rounded-2xl flex items-center justify-between border-l-4 border-l-red-500">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-red-400 text-xl">
-                            <i class="fa-solid fa-hand-fist"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-white text-base">สคริปต์ แมพ TSB</h4>
-                            <p class="text-xs text-slate-400">The Strongest Battlegrounds</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 rounded-full bg-red-950/80 text-red-300 border border-red-500/40 text-xs font-mono font-bold">
-                        12+ ฟังก์ชัน
-                    </span>
-                </div>
-
-                <!-- 4. ดีดคนออกแมพ -->
-                <div class="glass-card p-5 rounded-2xl flex items-center justify-between border-l-4 border-l-amber-500">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-amber-400 text-xl">
-                            <i class="fa-solid fa-user-slash"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-white text-base">สคริปต์ ดีดคนออกแมพ</h4>
-                            <p class="text-xs text-slate-400">Fling / Kick Utility</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 rounded-full bg-amber-950/80 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold">
-                        6+ ฟังก์ชัน
-                    </span>
-                </div>
-
-                <!-- 5. สร้างเรือ -->
-                <div class="glass-card p-5 rounded-2xl flex items-center justify-between border-l-4 border-l-emerald-500">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-emerald-400 text-xl">
-                            <i class="fa-solid fa-ship"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-white text-base">สคริปต์ แมพสร้างเรือ</h4>
-                            <p class="text-xs text-slate-400">Build a Boat for Treasure</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 text-xs font-mono font-bold">
-                        7+ ฟังก์ชัน
-                    </span>
-                </div>
-
-                <!-- 6. MM2 -->
-                <div class="glass-card p-5 rounded-2xl flex items-center justify-between border-l-4 border-l-purple-500">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-purple-400 text-xl">
-                            <i class="fa-solid fa-skull"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-white text-base">สคริปต์ แมพ MM2</h4>
-                            <p class="text-xs text-slate-400">Murder Mystery 2</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 rounded-full bg-purple-950/80 text-purple-300 border border-purple-500/40 text-xs font-mono font-bold">
-                        10+ ฟังก์ชัน
-                    </span>
-                </div>
-
-                <!-- 7. หาเซิร์ฟคนน้อย -->
-                <div class="glass-card p-5 rounded-2xl flex items-center justify-between border-l-4 border-l-indigo-500 sm:col-span-2 lg:col-span-1">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-indigo-400 text-xl">
-                            <i class="fa-solid fa-server"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-white text-base">สคริปต์ หาเซิร์ฟคนน้อย</h4>
-                            <p class="text-xs text-slate-400">Low Player Server Hop</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 rounded-full bg-indigo-950/80 text-indigo-300 border border-indigo-500/40 text-xs font-mono font-bold">
-                        10+ ฟังก์ชัน
-                    </span>
-                </div>
-
-            </div>
-
-            <!-- Notice Banner Direct Link -->
-            <div class="p-4 rounded-2xl glass-card border border-blue-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center shrink-0">
-                        <i class="fa-solid fa-circle-info text-lg"></i>
-                    </div>
-                    <div class="text-xs sm:text-sm text-slate-300">
-                        ต้องการคัดลอกคีย์ สคริปต์ หรือเลือกหมวดหมู่ที่ต้องการใช้งาน?
-                        <span class="text-white font-medium block sm:inline">กดปุ่มเข้าสู่คลังสคริปต์เพื่อรับโค้ดได้ทันที</span>
-                    </div>
-                </div>
-                <a href="https://gkhub-script-roblox.dmjk2885.workers.dev/" target="_blank" onclick="playClickSound()" class="shrink-0 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all flex items-center gap-2">
-                    <span>เปิดคลังสคริปต์</span>
-                    <i class="fa-solid fa-arrow-right"></i>
-                </a>
-            </div>
-
-        </section>
-
-        <!-- Creator Profile & Community Banner -->
-        <section class="glass-panel rounded-3xl p-6 sm:p-10 border border-cyan-500/20 relative overflow-hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                
-                <div class="space-y-4">
-                    <span class="px-3 py-1 rounded-full bg-blue-950 text-cyan-400 border border-cyan-500/30 text-xs font-mono">ABOUT DEVELOPER</span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
-                        ผู้จัดทำค่าย <span class="text-cyan-400">GK HUB</span>
-                    </h2>
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        บริหารงานและพัฒนาโค้ดโดย <strong class="text-white">เบส (Best)</strong> มีเป้าหมายในการพัฒนาเครื่องมือสำหรับเกม Roblox ให้กับสังคมไทยอย่างต่อเนื่อง เพื่อให้ผู้เล่นทุกคนได้รับประสบการณ์ที่ดี มีความเสถียร ปลอดภัย และใช้งานได้ฟรี
-                    </p>
-                    
-                    <div class="pt-2 flex flex-wrap gap-3 text-xs">
-                        <div class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 flex items-center gap-2">
-                            <i class="fa-brands fa-discord text-indigo-400"></i>
-                            <span>Discord: <strong class="text-white">@cchirphanth0580</strong> (gooร้อน)</span>
-                        </div>
-                        <a href="https://www.tiktok.com/@data_v2.0?_r=1&_t=ZS-99l0E6EcnBf" target="_blank" onclick="playClickSound()" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-pink-400 hover:border-pink-500/40 transition-all flex items-center gap-2">
-                            <i class="fa-brands fa-tiktok text-pink-400"></i>
-                            <span>TikTok: <strong class="text-white">@data_v2.0</strong></span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Discord Community Box -->
-                <div class="glass-card p-6 rounded-2xl border border-indigo-500/30 text-center space-y-4">
-                    <div class="w-16 h-16 mx-auto rounded-2xl bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400 text-3xl">
-                        <i class="fa-brands fa-discord"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white">เข้าร่วมเซิร์ฟเวอร์ GK HUB</h3>
-                        <p class="text-xs text-slate-400 mt-1">สอบถาม พูดคุย และรับข่าวสารสคริปต์อัปเดตใหม่ก่อนใคร</p>
-                    </div>
-                    <a href="https://discord.gg/Ugssja4wqQ" target="_blank" onclick="playClickSound()" class="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition-all shadow-lg shadow-indigo-600/30">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        <span>กดเพื่อเข้าสู่ Discord Server</span>
-                    </a>
-                </div>
-
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-slate-800/80 glass-panel py-8 px-4 lg:px-8 relative z-10 mt-12">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-            <div class="flex items-center gap-2">
-                <span class="font-bold text-white">GK HUB</span>
-                <span>© 2026 All Rights Reserved.</span>
-                <span class="text-slate-600">|</span>
-                <span>ก่อตั้ง 31/07/2569</span>
-            </div>
-            <div class="flex items-center gap-4">
-                <span>จัดทำโดย <strong class="text-white">เบส (Best)</strong></span>
-                <span class="text-slate-600">•</span>
-                <a href="https://www.tiktok.com/@data_v2.0?_r=1&_t=ZS-99l0E6EcnBf" target="_blank" class="hover:text-pink-400 transition-colors">TikTok: @data_v2.0</a>
-                <span class="text-slate-600">•</span>
-                <a href="https://discord.gg/Ugssja4wqQ" target="_blank" class="hover:text-indigo-400 transition-colors">Discord Community</a>
-            </div>
+            <ul class="features-list">
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์ใช้ได้ทุกแมพ</li>
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์ดีดคนออกแมพ</li>
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์หาเซิร์ฟคนน้อย</li>
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์ แมพ MM2</li>
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์ แมพ MvsD</li>
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์ FPS</li>
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์ แมพสร้างเรือ</li>
+                <li><i class="fa-solid fa-chevron-right"></i> สคริปต์ แมพ TSP</li>
+            </ul>
         </div>
-    </footer>
 
-    <!-- Web Audio API Sound Effects Script -->
+        <!-- Script Box Section -->
+        <div class="script-section">
+            <div class="script-header">
+                <i class="fa-solid fa-code"></i>
+                <span>GK HUB ALL Script (Loader)</span>
+            </div>
+            
+            <div class="code-box" id="scriptCode">
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dmjk2885-ship-it/Lll/refs/heads/main/GKHUB%20ALL"))()
+            </div>
+
+            <button class="btn btn-copy" onclick="copyScript()">
+                <i class="fa-regular fa-copy"></i>
+                <span>คัดลอกสคริปต์</span>
+            </button>
+        </div>
+
+        <!-- Discord Button Section -->
+        <a href="https://discord.gg/Ugssja4wqQ" target="_blank" class="btn btn-discord">
+            <i class="fa-brands fa-discord"></i>
+            <span>เข้าร่วม Discord GK HUB</span>
+        </a>
+
+        <!-- Report Issue Button -->
+        <button class="btn btn-report" onclick="toggleReportBox()">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>รายงานปัญหาสคริปต์</span>
+        </button>
+
+        <!-- Report Form Box -->
+        <div class="report-box" id="reportBox">
+            <div class="report-header">
+                <i class="fa-solid fa-bug"></i>
+                <span>แจ้งปัญหาสคริปต์ถึงทีมงาน</span>
+            </div>
+            <textarea id="reportMessage" maxlength="250" placeholder="พิมพ์รายละเอียดปัญหาที่คุณพบ (สูงสุด 250 ตัวอักษร)..." oninput="updateCharCount()"></textarea>
+            <div class="char-count"><span id="charCount">0</span>/250</div>
+            <button class="btn btn-send" onclick="sendReport()">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>ส่งรายงาน</span>
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2026 GK HUB. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-check-circle"></i> <span id="toastMsg">คัดลอกสคริปต์เรียบร้อยแล้ว!</span>
+    </div>
+
     <script>
-        let audioEnabled = true;
-        let audioCtx = null;
+        // Webhook URL
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1561656790196817973/IcPgxz_R2DBX2Po10_7cDUCYyOG3E6yQ_rWpwarF8K-5mMxscP9e2d2iMp0JTVI5XpM9";
 
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-        }
-
-        function toggleAudio() {
-            audioEnabled = !audioEnabled;
-            const icon = document.getElementById('soundIcon');
-            const btn = document.getElementById('soundToggleBtn');
-            
-            if (audioEnabled) {
-                icon.className = 'fa-solid fa-volume-high text-sm';
-                btn.classList.remove('opacity-50');
-                playClickSound();
-            } else {
-                icon.className = 'fa-solid fa-volume-xmark text-sm';
-                btn.classList.add('opacity-50');
-            }
-        }
-
-        // Futuristic Click Sound
-        function playClickSound() {
-            if (!audioEnabled) return;
-            initAudio();
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.08);
-
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.08);
-        }
-
-        // Hover Effect Sound
-        function playHoverSound() {
-            if (!audioEnabled) return;
-            initAudio();
-            if (audioCtx.state === 'suspended') return;
-
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
-            osc.frequency.linearRampToValueAtTime(500, audioCtx.currentTime + 0.04);
-
-            gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.04);
-        }
-
-        // Attach Hover sounds to interactive elements
-        document.addEventListener('DOMContentLoaded', () => {
-            const hoverTargets = document.querySelectorAll('a, button, .glass-card');
-            hoverTargets.forEach(el => {
-                el.addEventListener('mouseenter', () => playHoverSound());
+        // Copy Script Function
+        function copyScript() {
+            const scriptText = document.getElementById('scriptCode').innerText.trim();
+            navigator.clipboard.writeText(scriptText).then(() => {
+                showToast("คัดลอกสคริปต์เรียบร้อยแล้ว!");
+            }).catch(err => {
+                const tempInput = document.createElement('textarea');
+                tempInput.value = scriptText;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                showToast("คัดลอกสคริปต์เรียบร้อยแล้ว!");
             });
-        });
+        }
+
+        // Toggle Report Box
+        function toggleReportBox() {
+            const reportBox = document.getElementById('reportBox');
+            if (reportBox.style.display === "block") {
+                reportBox.style.display = "none";
+            } else {
+                reportBox.style.display = "block";
+            }
+        }
+
+        // Character Count Update
+        function updateCharCount() {
+            const text = document.getElementById('reportMessage').value;
+            document.getElementById('charCount').innerText = text.length;
+        }
+
+        // Send Report to Discord Webhook
+        function sendReport() {
+            const message = document.getElementById('reportMessage').value.trim();
+
+            if (message === "") {
+                showToast("กรุณากรอกข้อความก่อนส่ง!");
+                return;
+            }
+
+            const payload = {
+                embeds: [{
+                    title: "🚨 มีการรายงานปัญหาสคริปต์ใหม่ (GK HUB)",
+                    color: 16730200, // สีแดง
+                    fields: [
+                        {
+                            name: "📝 รายละเอียดปัญหา",
+                            value: message
+                        }
+                    ],
+                    footer: {
+                        text: "ส่งจากเว็บไซต์ GK HUB Official"
+                    },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            }).then(response => {
+                if (response.ok) {
+                    showToast("ส่งรายงานปัญหาเรียบร้อยแล้ว!");
+                    document.getElementById('reportMessage').value = "";
+                    updateCharCount();
+                    toggleReportBox();
+                } else {
+                    showToast("เกิดข้อผิดพลาดในการส่ง กรุณาลองใหม่");
+                }
+            }).catch(error => {
+                showToast("เกิดข้อผิดพลาดในการเชื่อมต่อ!");
+            });
+        }
+
+        // Show Toast Notification
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
     </script>
 </body>
 </html>
